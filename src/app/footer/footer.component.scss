@@ -2,21 +2,21 @@ $lt-gray: #ddd;
 $background-dark: #512DA8;
 $background-light: #9575CD;
 $background-pale: #D1C4E9;
-
+$border-radius-size: 40%;
 @mixin zero-margin($pad-up-down, $pad-left-right) {
-    margin: 0px auto;
-    padding: $pad-up-down $pad-left-right;
+  margin: 0 auto;
+  padding: $pad-up-down $pad-left-right;
 }
 
 .footer {
   background-color: $background-pale;
-  @include zero-margin(20px, 0px);
+  @include zero-margin(20px, 0);
 }
 
-address{
-  font-size:80%;
-  margin:0px;
-  color:#0f0f0f;
+address {
+  font-size: 80%;
+  margin: 0;
+  color: #0f0f0f;
 }
 
 footer .row div {
@@ -24,9 +24,35 @@ footer .row div {
   margin-bottom: 20px;
 }
 
-.btn-facebook {color:#fff!important; background-color:#3b5998!important;}
-.btn-google-plus{color:#fff!important;background-color:#dd4b39!important;}
-.btn-youtube{color:#fff!important;background-color:#ff4b39!important;}
-.btn-linkedin{color:#fff!important;background-color:#007bb6!important;}
-.btn-twitter{color:#fff!important;background-color:#55acee!important;}
-.btn-mail{color:#fff!important;background-color:#512DA8!important;}
+footer .btn-social {
+  border-radius: $border-radius-size;
+  color: #fff!important;
+}
+
+footer .btn-social:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.btn-facebook {
+  background-color: #3b5998!important;
+}
+
+.btn-google-plus {
+  background-color: #dd4b39!important;
+}
+
+.btn-youtube {
+  background-color: #ff4b39!important;
+}
+
+.btn-linkedin {
+  background-color: #007bb6!important;
+}
+
+.btn-twitter {
+  background-color: #55acee!important;
+}
+
+.btn-mail {
+  background-color: #512DA8!important;
+}
