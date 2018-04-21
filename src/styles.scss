@@ -22,10 +22,6 @@ body {
   font-family: Roboto, sans-serif;
 }
 
-.container {
-  margin: 20px;
-  display: flex;
-}
 .row-header{
   @include zero-margin(0px,0px);
 }
