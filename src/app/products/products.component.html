@@ -5,7 +5,7 @@
     <hr>
   </div>
   <div class="col-12 col-md-8">
-    <form>
+    <form (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="nombre">Nombre completo</label>
         <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp" placeholder="Nombre completo">
@@ -103,7 +103,9 @@
         </div>
       </div>
     </form>
-  </div>
-  <div class="col-12 col-md">
+    <div *ngIf="errMessage">
+      <h2>Error</h2>
+      <h4>{{errMess}}</h4>
+    </div>
   </div>
 </div>
