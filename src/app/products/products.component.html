@@ -1,0 +1,76 @@
+<div class="row row-content">
+  <div class="col-12">
+    <h3>Solicitud de productos</h3>
+    <p>¡Haz tu pedido en tan sólo 3 minutos!</p>
+  </div>
+  <div class="col-12 col-md-8">
+    <form>
+      <div class="form-group">
+        <label for="nombre">Nombre completo</label>
+        <input type="text" class="form-control" id="nombre" aria-describedby="nombreHelp" placeholder="Nombre completo">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-12 col-md-5">
+          <label for="tipoDoc">Tipo de identificación</label>
+          <select id="tipoDoc" class="form-control">
+            <option selected>Selecciona uno</option>
+            <option value="1">Cédula de ciudadania</option>
+            <option value="2">Cédula de extranjeria</option>
+            <option value="3">NIT</option>
+          </select>
+        </div>
+        <div class="form-group col-12 col-md-7">
+          <label for="numDoc">Número de identificación</label>
+          <input type="text" class="form-control" id="numDoc" placeholder="Numero de identificación">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="fecha">Fecha y hora de entrega</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="addon-fecha">
+                <i class="fa fa-calendar"></i>
+              </span>
+            </div>
+            <input type="text" class="form-control" id="fecha" aria-describedby="dateHelp" placeholder="Fecha y hora">
+          </div>
+          <small id="dateHelp" class="form-text text-muted">dd-MM-YY HH:mm:ss</small>
+        </div>
+        <div class="form-group col">
+          <label for="direccion">Dirección de entrega</label>
+          <input type="text" class="form-control" id="direccion" placeholder="Dirección">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="cantidad">Cantidad de productos</label>
+          <input type="text" class="form-control" id="cantidad" placeholder="Cantidad">
+        </div>
+        <div class="form-group col">
+          <label for="fecha">Valor total del pedido</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="addon-fecha">
+                $
+              </span>
+            </div>
+            <input type="text" class="form-control" id="fecha" aria-describedby="dateHelp" placeholder="Fecha y hora">
+          </div>
+          <small id="dateHelp" class="form-text text-muted">
+            El precio del transporte no está incluido y dependerá del lugar de entrega, este se deberá cancelar junto con el valor del pedido en el momento de la entrega.
+          </small>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-auto ml-auto">
+          <button type="submit" class="btn btn-primary">
+            Continuar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-12 col-md">
+  </div>
+</div>
