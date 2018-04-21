@@ -2,6 +2,7 @@
   <div class="col-12">
     <h3>Solicitud de productos</h3>
     <p>¡Haz tu pedido en tan sólo 3 minutos!</p>
+    <hr>
   </div>
   <div class="col-12 col-md-8">
     <form>
@@ -25,7 +26,7 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group col">
+        <div class="form-group col-12 col-md-6">
           <label for="fecha">Fecha y hora de entrega</label>
           <div class="input-group">
             <div class="input-group-prepend">
@@ -37,17 +38,49 @@
           </div>
           <small id="dateHelp" class="form-text text-muted">dd-MM-YY HH:mm:ss</small>
         </div>
-        <div class="form-group col">
+        <div class="form-group col-12 col-md-6">
           <label for="direccion">Dirección de entrega</label>
           <input type="text" class="form-control" id="direccion" placeholder="Dirección">
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group col">
+        <div class="form-group col-12 col-md-4">
+          <label for="tipo">Camisas Formales</label>
+          <div class="input-group">
+            <input type="text" id="tipo" class="form-control" placeholder="0">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button">-</button>
+              <button class="btn btn-outline-secondary" type="button">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-12 col-md-4">
+          <label for="tipo">Pantalones Formales</label>
+          <div class="input-group">
+            <input type="text" id="tipo" class="form-control" placeholder="0">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button">-</button>
+              <button class="btn btn-outline-secondary" type="button">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-12 col-md-4">
+          <label for="tipo">Chaquetas</label>
+          <div class="input-group">
+            <input type="text" id="tipo" class="form-control" placeholder="0">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button">-</button>
+              <button class="btn btn-outline-secondary" type="button">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-12 col-md-6">
           <label for="cantidad">Cantidad de productos</label>
           <input type="text" class="form-control" id="cantidad" placeholder="Cantidad">
         </div>
-        <div class="form-group col">
+        <div class="form-group col-12 col-md-6">
           <label for="fecha">Valor total del pedido</label>
           <div class="input-group">
             <div class="input-group-prepend">
@@ -55,7 +88,7 @@
                 $
               </span>
             </div>
-            <input type="text" class="form-control" id="fecha" aria-describedby="dateHelp" placeholder="Fecha y hora">
+            <input type="text" class="form-control" disabled id="fecha" aria-describedby="dateHelp">
           </div>
           <small id="dateHelp" class="form-text text-muted">
             El precio del transporte no está incluido y dependerá del lugar de entrega, este se deberá cancelar junto con el valor del pedido en el momento de la entrega.
