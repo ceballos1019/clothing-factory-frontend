@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../services/order.service';
-import { Observable } from 'rxjs/Observable';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { Order } from '../shared/order';
+import { Product, ProductType } from '../shared/product';
 
 @Component({
   selector: 'app-products',
@@ -9,44 +11,55 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private orderService: OrderService) { }
+
+  order: Order = new Order();
+  productTypes = ProductType;
+  products: Product[] = [
+    {
+      id:0,
+      type:this.productTypes[0],
+      price:2500,
+      quantity:0
+    },
+    {
+      id:1,
+      type:this.productTypes[1],
+      price:3000,
+      quantity:0
+    },
+    {
+      id:2,
+      type:this.productTypes[2],
+      price:3001,
+      quantity:0
+    }
+  ];
+
+
+
+  docTypes: string[] = ["Cedula de ciudadania", "Cedula de extranjeria", "NIT"];
+
+  constructor(private orderService: OrderService) {
+
+  }
 
   ngOnInit() {
   }
 
-  errMessage: string;
-
   onSubmit() {
-    let order: Order = {
-      name: "TestName";
-      docType: 'CC';
-      docNumber: 121315;
-      date: '12-05-2018';
-      address: 'Avenida Colombia';
-      quantity: 5;
-      detail: [
-        {
-          product: {
-            id: 1;
-            name: 'Sueter';
-            type: 'Camisas formales';
-            price: 23000;
-          };
-          quantity: 3;
-        }
-      ];
-      totalValue: 45000;
-    };
+    console.log(this.order);
+    console.log(this.products);
+    this.order.detail = this.products;
 
-    this.orderService.addOrder(order).subscribe(
+
+    this.orderService.addOrder(this.order).subscribe(
       res => {
         console.log(res);
       },
       err => {
         console.log("Error occured 2");
-        this.errMessage = "Error";
       }
-    );;
+    );
 
   }
 

@@ -1,4 +1,4 @@
-import { OrderDetail } from './orderDetail';
+import { Product } from './product';
 
 export class Order {
   name: string;
@@ -7,6 +7,6 @@ export class Order {
   date: string;
   address: string;
   quantity: number;
-  detail: OrderDetail[];
+  detail: Product[];
   totalValue: number;
 }
