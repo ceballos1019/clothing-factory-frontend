@@ -9,7 +9,10 @@
       <div class="form-group">
         <label for="name">Nombre completo</label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Nombre completo"
-        #name="ngModel" [(ngModel)]="order.name" required>        
+        #name="ngModel" [(ngModel)]="order.name" min-length="4" required>
+        <div class="" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <small *ngIf="name.errors.required" class="form-text text-muted">Por favor ingresa tu nombre</small>
+        </div>
       </div>
       <div class="form-row">
         <div class="form-group col-12 col-md-5">

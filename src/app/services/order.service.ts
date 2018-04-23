@@ -22,6 +22,6 @@ export class OrderService {
   constructor(private http: HttpClient) { }
 
   addOrder(order: Order): Observable<Order> {
-    return this.http.post('/test/data', order, httpOptions);
+    return this.http.post<Order>('/test/data', order, httpOptions);
   }
 }
