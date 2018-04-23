@@ -8,96 +8,134 @@
     <form (ngSubmit)="onSubmit()" novalidate #orderForm="ngForm">
       <div class="form-group">
         <label for="name">Nombre completo</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Nombre completo"
+        <input type="text" class="form-control" id="name" name="name" placeholder="Ej: Andrés Ceballos Sanchez"
         #name="ngModel" [(ngModel)]="order.name" min-length="4" required>
-        <div class="" *ngIf="name.invalid && (name.dirty || name.touched)">
-          <small *ngIf="name.errors.required" class="form-text text-muted">Por favor ingresa tu nombre</small>
+        <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <div *ngIf="name.errors.required">Por favor ingresa tu nombre</div>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-12 col-md-5">
           <label for="docType">Tipo de identificación</label>
-          <select name="docType" class="form-control" #docType="ngModel"
+          <select name="docType" id="docType" class="form-control" #docType="ngModel"
           [(ngModel)]="order.docType" required>
-            <option *ngFor="let docType of docTypes" [ngValue]="docType">
-              {{docType}}
-            </option>
-          </select>
-        </div>
-        <div class="form-group col-12 col-md-7">
-          <label for="docNumber">Número de identificación</label>
-          <input type="text" class="form-control" name="docNumber" placeholder="Numero de identificación"
-          #docNumber="ngModel" [(ngModel)]="order.docNumber" required>
+          <option *ngFor="let docType of docTypes" [ngValue]="docType">
+            {{docType}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-12 col-md-7">
+        <label for="docNumber">Número de identificación</label>
+        <input type="text" class="form-control" id="docNumber" name="docNumber" placeholder="Numero de identificación"
+        #docNumber="ngModel" [(ngModel)]="order.docNumber" required>
+        <div class="alert alert-danger" *ngIf="docNumber.invalid && (docNumber.dirty || docNumber.touched)">
+          <div *ngIf="docNumber.errors.required">Por favor ingresa tu número de identificación</div>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group col-12 col-md-6">
-          <label for="date">Fecha y hora de entrega</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="addon-fecha">
-                <i class="fa fa-calendar"></i>
-              </span>
-            </div>
-            <input type="text" class="form-control" name="date" aria-describedby="dateHelp"
-            placeholder="Fecha y hora" #date="ngModel" [(ngModel)]="order.date" required>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 col-md-6">
+        <label for="date">Fecha y hora de entrega</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="addon-fecha">
+              <i class="fa fa-calendar"></i>
+            </span>
           </div>
-          <small id="dateHelp" class="form-text text-muted">dd-MM-YY HH:mm:ss</small>
+          <input type="text" class="form-control" name="date" id="date" aria-describedby="dateHelp"
+          placeholder="Ej: 12-08-18 15:30" #date="ngModel" [(ngModel)]="order.date" required>
         </div>
-        <div class="form-group col-12 col-md-6">
-          <label for="address">Dirección de entrega</label>
-          <input type="text" class="form-control" name="address" placeholder="Dirección"
-          #address="ngModel" [(ngModel)]="order.address" required>
+        <div class="alert alert-danger" *ngIf="date.invalid && (date.dirty || date.touched)">
+          <div *ngIf="date.errors.required">Por favor ingresa la fecha de entrega</div>
+        </div>
+        <small id="dateHelp" class="form-text text-muted">dd-MM-YY HH:mm</small>
+      </div>
+      <div class="form-group col-12 col-md-6">
+        <label for="address">Dirección de entrega</label>
+        <input type="text" class="form-control" name="address" id="address" placeholder="Ej: Calle 65 #54-23"
+        #address="ngModel" [(ngModel)]="order.address" required>
+        <div class="alert alert-danger" *ngIf="address.invalid && (address.dirty || address.touched)">
+          <div *ngIf="address.errors.required">Por favor ingresa la dirección de entrega</div>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group col-12 col-md-4" *ngFor="let productType of productTypes; let i = index">
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 col-md-4" *ngFor="let productType of productTypes; let i = index">
         <div>
           <label for="tipo{{i}}">{{productType}}</label>
           <div class="input-group">
             <input type="number" name="tipo{{i}}" class="form-control" placeholder="0"
             #tipo{{i}}="ngModel" [(ngModel)]="products[i].quantity">
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button">-</button>
-              <button class="btn btn-outline-secondary" type="button">+</button>
-            </div>
-          </div>
+              <button class="btn btn-outline-secondary" type="button" (click)="removeClothes(i)"
+              [disabled]="order.quantity === 0 || products[i].quantity === 0">
+              -
+            </button>
+            <button class="btn btn-outline-secondary" type="button" (click)="addClothes(i)"
+            [disabled]="order.quantity === maxClothes">
+            +
+          </button>
         </div>
       </div>
     </div>
-    <div class="form-row">
-      <div class="form-group col-12 col-md-6">
-        <label for="quantity">Cantidad de productos</label>
-        <input type="number" class="form-control" name="quantity" placeholder="Cantidad"
-        #quantity="ngModel" [(ngModel)]="order.quantity">
+  </div>
+  <small class="form-text text-muted mb-3" [hidden]="order.quantity !== maxClothes">
+    Recuerda que no puedes seleccionar más de 5 prendas en un pedido
+  </small>
+</div>
+<div class="form-row">
+  <div class="form-group col-12 col-md-6">
+    <label for="quantity">Cantidad de productos</label>
+    <input type="number" class="form-control" name="quantity" placeholder="0"
+    #quantity="ngModel" [(ngModel)]="order.quantity" disabled>
+  </div>
+  <div class="form-group col-12 col-md-6">
+    <label for="totalValue">Valor total del pedido</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="addon-fecha">
+          $
+        </span>
       </div>
-      <div class="form-group col-12 col-md-6">
-        <label for="totalValue">Valor total del pedido</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="addon-fecha">
-              $
-            </span>
-          </div>
-          <input type="text" class="form-control" name="totalValue" aria-describedby="dateHelp"
-          #totalValue="ngModel" [(ngModel)]="order.totalValue">
-        </div>
-        <small id="dateHelp" class="form-text text-muted">
-          El precio del transporte no está incluido y dependerá del lugar de entrega, este se deberá cancelar junto con el valor del pedido en el momento de la entrega.
-        </small>
-      </div>
+      <input type="text" class="form-control" name="totalValue" aria-describedby="dateHelp"
+      #totalValue="ngModel" [(ngModel)]="order.totalValue" disabled>
     </div>
-    <div class="form-group row">
-      <div class="col-auto ml-auto">
-        <button type="submit" class="btn btn-primary" [disabled]="orderForm.form.invalid">
-          Continuar
+    <small id="dateHelp" class="form-text text-muted">
+      El precio del transporte no está incluido y dependerá del lugar de entrega, este se deberá cancelar junto con el valor del pedido en el momento de la entrega.
+    </small>
+  </div>
+</div>
+<div class="form-group row">
+  <div class="col-auto ml-auto">
+    <button type="submit" class="btn btn-primary" [disabled]="orderForm.form.invalid || order.quantity === 0"
+    data-toggle="modal" data-target="#resultModal">
+      Continuar
+    </button>
+  </div>
+</div>
+</form>
+<div *ngIf="errMessage">
+  <h2>Error</h2>
+  <h4>{{errMess}}</h4>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Resultado de la solicitud</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <div class="modal-body">
+        {{requestMessage}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
     </div>
-  </form>
-  <div *ngIf="errMessage">
-    <h2>Error</h2>
-    <h4>{{errMess}}</h4>
   </div>
 </div>
 </div>

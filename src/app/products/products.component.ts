@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Order } from '../shared/order';
 import { Product, ProductType } from '../shared/product';
 
+const MAX_CLOTHES: number = 5;
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -16,34 +18,33 @@ export class ProductsComponent implements OnInit {
   productTypes = ProductType;
   products: Product[] = [
     {
-      id:0,
       type:this.productTypes[0],
       price:2500,
       quantity:0
     },
     {
-      id:1,
       type:this.productTypes[1],
       price:3000,
       quantity:0
     },
     {
-      id:2,
       type:this.productTypes[2],
       price:3001,
       quantity:0
     }
   ];
 
-
-
   docTypes: string[] = ["Cedula de ciudadania", "Cedula de extranjeria", "NIT"];
+  maxClothes = MAX_CLOTHES;
+  requestMessage: string;
 
   constructor(private orderService: OrderService) {
 
   }
 
   ngOnInit() {
+    this.order.quantity = 0;
+    this.order.totalValue = 0;
   }
 
   onSubmit() {
@@ -54,13 +55,27 @@ export class ProductsComponent implements OnInit {
 
     this.orderService.addOrder(this.order).subscribe(
       res => {
-        console.log(res);
+        this.requestMessage = "Tu pedido ha sido registrado exitosamente";
       },
       err => {
-        console.log("Error occured 2");
+        this.requestMessage = "Error generando el pedido. Por favor intente más tarde";
       }
     );
 
   }
 
+  addClothes(index: number) {
+    if(this.order.quantity !== MAX_CLOTHES) {
+      this.products[index].quantity++;
+      this.order.quantity++;
+      this.order.totalValue += this.products[index].price;
+
+    }
+  }
+
+  removeClothes(index: number) {
+    this.products[index].quantity--;
+    this.order.quantity--;
+    this.order.totalValue -= this.products[index].price;
+  }
 }
